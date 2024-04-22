@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinterest -- Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- navbar  -->
+    <div class="w-full px-10 py-3 flex justify-between bg-zinc-700 text-white items-center">
+        <h3>Pinterest</h3>
+        <div class="flex gap-10 items-center">
+            <a href="/profile">Profile</a>
+            <a href="/feed">Feed</a>
+            <a class="px-3 py-2 bg-red-700 text-white rounded-lg" href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="w-full min-h-screen bg-zinc-800 text-white pt-1">
+        <form id="uploadform" hidden action="/fileupload" method="post" enctype="multipart/form-data">
+            <input type="file" name="image">
+        </form>
+        <div class="flex flex-col items-center mt-20">
+            <div class="relative">
+                <span id="uploadicon"
+                    class="w-9 h-9 absolute bottom-0 right-0 rounded-full flex items-center justify-center bg-zinc-200 cursor-pointer"><i
+                        class="text-zinc-800 ri-edit-line"></i>
+                </span>
+                <div class="w-32 h-32 bg-zinc-200 rounded-full overflow-hidden"><img class="w-full h-full object-cover"
+                        src="/images/uploads/<%= user.profileImage %>" alt="ProfileImage"></div>
+            </div>
+            <span class="text-3xl font-semibold mt-5">
+                <%= user.name %>
+            </span>
+            <span class="text-md">@<%= user.username %></span>
+            <a href="/edit" class="mt-5 px-7 py-2 bg-zinc-700 rounded-full text-xs font-semibold">Edit Profile</a>
+            <a href="/add" class="mt-5 px-7 py-2 bg-red-700 rounded-full text-xs font-semibold">Add New Post</a>
+        </div>
+        <div class="flex flex-wrap gap-10 px-10 mt-10 m-auto">
+            <div class="card">
+                <div class="w-60 h-40 bg-zinc-200 rounded-lg overflow-hidden"><img class="w-full h-full object-cover"
+                        src="/images/uploads/<%= user?.postsid[0]?.postImage %>" alt=""></div>
+                <a href="/show/postsid" class="inline-black text-xl font-semibold mt-3">All Pins</a>
+                <h5 class="text-sm font-medium opacity-60">
+                    <%= user.postsid.length %> Pins
+                </h5>
+            </div>
+        </div>
+    </div>
+    <script>
+        // click event add on edit profile pencil icon
+        document.querySelector("#uploadicon").addEventListener("click", function () {
+            document.querySelector("#uploadform input").click();
+        })
+        // change event add aghr hum ne profile ki image change krni hai tu use hoga
+        document.querySelector("#uploadform input").addEventListener("change", function () {
+            document.querySelector("#uploadform").submit();
+        })
+    </script>
+</body>
+
+</html>
